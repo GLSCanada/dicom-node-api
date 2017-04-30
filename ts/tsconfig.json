@@ -1,0 +1,35 @@
+{
+    "version": "2.2.2",
+    "compilerOptions": {
+        "compileOnSave": true,
+        "target": "es5",
+        "lib": ["es6"],
+        "types": ["mocha"],
+        "sourceMap": true,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "isolatedModules": false,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "declaration": false,
+        "noImplicitAny": false,
+        "removeComments": true,
+        "noLib": false,
+        "preserveConstEnums": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "noUnusedParameters": false,
+        "noUnusedLocals": true,
+        "outDir": "../js"
+    },
+    "include": [
+        "ts/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ],
+    "files": [
+        "./index.ts",
+        "./typings/globals/node/index.d.ts",
+        "./typings/index.d.ts"
+    ]
+}

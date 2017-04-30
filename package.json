@@ -2,7 +2,8 @@
   "name": "dicom-node-api",
   "version": "0.0.1",
   "description": "Dicom API for nodejs. You need a Dicom account with \"api\" right in order to use this lib. Please go to http://technicalsupport.godicom.com in order to get the access.",
-  "main": "index.js",
+  "main": "js/index.js",
+  "typings": "js/index",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,11 +12,15 @@
     "url": "https://github.com/DicomGroup/dicom-node-api.git"
   },
   "keywords": [
-    "Dicom"
+    "Dicom",
+    "typescript"
   ],
   "author": "Olivier Albertini",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/DicomGroup/dicom-node-api/issues"
+  },
+  "dependencies": {
+    "tslint": "^5.1.0"
   }
 }
