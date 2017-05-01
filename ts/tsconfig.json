@@ -1,7 +1,6 @@
 {
     "version": "2.2.2",
     "compilerOptions": {
-        "compileOnSave": true,
         "target": "es5",
         "lib": ["es6"],
         "types": ["mocha"],

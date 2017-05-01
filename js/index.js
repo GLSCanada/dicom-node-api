@@ -56,7 +56,8 @@ var DicomAPI = (function () {
             headers: {
                 'Authorization': DicomAPI.authorization,
                 'accept': 'application/json',
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                'Ocp-Apim-Subscription-Key': DicomAPI.config.token
             },
             body: data,
             json: true

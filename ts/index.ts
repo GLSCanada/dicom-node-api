@@ -8,16 +8,7 @@ const defaultConfig = {
   password: process.env.DICOM_PASSWORD,
   token: process.env.DICOM_TOKEN,
   baseUrl: process.env.DICOM_BASEURL||'http://api.godicom.com/sandbox/ws/external/shipping'
-}
-
-// const urls = {
-//   api_create_shipment_url: process.env.API_CREATE_SHIPMENT_URL || 'https://api1.dicom.com/uni-sandbox/shipment',
-//   api_create_pickup_url: process.env.API_CREATE_PICKUP_URL || 'http://api.godicom.com/sandbox/ws/external/shipping/pickup',
-//   api_generate_manifest_url: process.env.API_MANIFEST_URL || 'http://api.godicom.com/sandbox/ws/external/shipping/pickup/{id}/manifests',
-//   api_generate_waybill_url: process.env.API_GENERATE_WAYBILL_URL || 'http://api.godicom.com/sandbox/ws/external/shipping/shipment/{id}/waybills?format=4x5',
-// }
-
-  
+} 
 
 export default class DicomAPI {
   
@@ -72,6 +63,7 @@ export default class DicomAPI {
         callback(error, response.body)
       })
   }
+
   post(path:string, data:Object, callback:(error:any, id:number|string, response:any)=>void){
 
         const options = {
@@ -80,7 +72,8 @@ export default class DicomAPI {
           headers: {
             'Authorization': DicomAPI.authorization,
             'accept': 'application/json',
-            'content-type': 'application/json'
+            'content-type': 'application/json',
+            'Ocp-Apim-Subscription-Key': DicomAPI.config.token
           },
           body: data,
           json: true
