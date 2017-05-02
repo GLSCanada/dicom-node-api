@@ -24,15 +24,15 @@ const defaultConfig = {
 
 export default class DicomAPI {
   
-  private config:IConfig = defaultConfig
-  static authorization:string
+  private config:IConfig
+  private basicAuth:string
 
   constructor(config?:IConfig){
     if(config){
       Object.assign(this.config,config);
     }
 
-    DicomAPI.authorization = 'Basic ' + Buffer.from(this.config.username + ':' + this.config.password).toString('base64');  
+    this.basicAuth = 'Basic ' + Buffer.from(this.config.username + ':' + this.config.password).toString('base64');  
   }
 
   createPickup(data:Object, callback:(error:any, id:string|number, response:any) => void){
@@ -64,7 +64,7 @@ export default class DicomAPI {
         url: `${this.config.baseUrl}${path}`,
         method: 'GET',
         headers: {
-          'Authorization': DicomAPI.authorization,
+          'Authorization': this.basicAuth,
           'accept': 'application/pdf',
           'content-type': 'application/json'
         },
@@ -82,7 +82,7 @@ export default class DicomAPI {
           url: `${this.config.baseUrl}${path}`,
           method: 'POST',
           headers: {
-            'Authorization': DicomAPI.authorization,
+            'Authorization': this.basicAuth,
             'accept': 'application/json',
             'content-type': 'application/json',
             'Ocp-Apim-Subscription-Key': this.config.token

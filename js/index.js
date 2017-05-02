@@ -9,11 +9,10 @@ var defaultConfig = {
 };
 var DicomAPI = (function () {
     function DicomAPI(config) {
-        this.config = defaultConfig;
         if (config) {
             Object.assign(this.config, config);
         }
-        DicomAPI.authorization = 'Basic ' + Buffer.from(this.config.username + ':' + this.config.password).toString('base64');
+        this.basicAuth = 'Basic ' + Buffer.from(this.config.username + ':' + this.config.password).toString('base64');
     }
     DicomAPI.prototype.createPickup = function (data, callback) {
         var path = '/pickup';
@@ -40,7 +39,7 @@ var DicomAPI = (function () {
             url: "" + this.config.baseUrl + path,
             method: 'GET',
             headers: {
-                'Authorization': DicomAPI.authorization,
+                'Authorization': this.basicAuth,
                 'accept': 'application/pdf',
                 'content-type': 'application/json'
             },
@@ -55,7 +54,7 @@ var DicomAPI = (function () {
             url: "" + this.config.baseUrl + path,
             method: 'POST',
             headers: {
-                'Authorization': DicomAPI.authorization,
+                'Authorization': this.basicAuth,
                 'accept': 'application/json',
                 'content-type': 'application/json',
                 'Ocp-Apim-Subscription-Key': this.config.token
