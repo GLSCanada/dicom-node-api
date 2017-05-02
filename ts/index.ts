@@ -10,20 +10,32 @@ const defaultConfig = {
   baseUrl: process.env.DICOM_BASEURL||'http://api.godicom.com/sandbox/ws/external/shipping'
 } 
 
+
+// const request = async function (body) {
+//   return new Promise((resolve, reject) => {
+//     oldrequest(body, (error, response, body) => {
+//       if (error) reject(error)
+//       else resolve(body)
+//     })
+//   }
+//   )
+
+//todo check to change for async/await
+
 export default class DicomAPI {
   
-  static config:IConfig = defaultConfig
+  private config:IConfig = defaultConfig
   static authorization:string
 
   constructor(config?:IConfig){
     if(config){
-      Object.assign(DicomAPI.config,config);
+      Object.assign(this.config,config);
     }
 
-    DicomAPI.authorization = 'Basic ' + Buffer.from(DicomAPI.config.username + ':' + DicomAPI.config.password).toString('base64');  
+    DicomAPI.authorization = 'Basic ' + Buffer.from(this.config.username + ':' + this.config.password).toString('base64');  
   }
 
-  createPickup(data:Object, callback:(error:any,id:string|number,response:any) => void){
+  createPickup(data:Object, callback:(error:any, id:string|number, response:any) => void){
     const path = '/pickup'
     this.post(path, data, callback)
   }
@@ -49,7 +61,7 @@ export default class DicomAPI {
       }
 
       const options = {
-        url: `${DicomAPI.config.baseUrl}${path}`,
+        url: `${this.config.baseUrl}${path}`,
         method: 'GET',
         headers: {
           'Authorization': DicomAPI.authorization,
@@ -67,13 +79,13 @@ export default class DicomAPI {
   post(path:string, data:Object, callback:(error:any, id:number|string, response:any)=>void){
 
         const options = {
-          url: `${DicomAPI.config.baseUrl}${path}`,
+          url: `${this.config.baseUrl}${path}`,
           method: 'POST',
           headers: {
             'Authorization': DicomAPI.authorization,
             'accept': 'application/json',
             'content-type': 'application/json',
-            'Ocp-Apim-Subscription-Key': DicomAPI.config.token
+            'Ocp-Apim-Subscription-Key': this.config.token
           },
           body: data,
           json: true

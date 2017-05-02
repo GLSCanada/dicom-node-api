@@ -9,10 +9,11 @@ var defaultConfig = {
 };
 var DicomAPI = (function () {
     function DicomAPI(config) {
+        this.config = defaultConfig;
         if (config) {
-            Object.assign(DicomAPI.config, config);
+            Object.assign(this.config, config);
         }
-        DicomAPI.authorization = 'Basic ' + Buffer.from(DicomAPI.config.username + ':' + DicomAPI.config.password).toString('base64');
+        DicomAPI.authorization = 'Basic ' + Buffer.from(this.config.username + ':' + this.config.password).toString('base64');
     }
     DicomAPI.prototype.createPickup = function (data, callback) {
         var path = '/pickup';
@@ -36,7 +37,7 @@ var DicomAPI = (function () {
             throw new Error("id is required");
         }
         var options = {
-            url: "" + DicomAPI.config.baseUrl + path,
+            url: "" + this.config.baseUrl + path,
             method: 'GET',
             headers: {
                 'Authorization': DicomAPI.authorization,
@@ -51,13 +52,13 @@ var DicomAPI = (function () {
     };
     DicomAPI.prototype.post = function (path, data, callback) {
         var options = {
-            url: "" + DicomAPI.config.baseUrl + path,
+            url: "" + this.config.baseUrl + path,
             method: 'POST',
             headers: {
                 'Authorization': DicomAPI.authorization,
                 'accept': 'application/json',
                 'content-type': 'application/json',
-                'Ocp-Apim-Subscription-Key': DicomAPI.config.token
+                'Ocp-Apim-Subscription-Key': this.config.token
             },
             body: data,
             json: true
@@ -76,6 +77,5 @@ var DicomAPI = (function () {
     };
     return DicomAPI;
 }());
-DicomAPI.config = defaultConfig;
 exports.default = DicomAPI;
 //# sourceMappingURL=index.js.map
