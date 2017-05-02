@@ -3,12 +3,12 @@ import { IConfig } from "./specs/IConfig";
 
 const request = require('request')
 
-const defaultConfig = {
-  username: process.env.DICOM_USERNAME,
-  password: process.env.DICOM_PASSWORD,
-  token: process.env.DICOM_TOKEN,
-  baseUrl: process.env.DICOM_BASEURL||'http://api.godicom.com/sandbox/ws/external/shipping'
-} 
+// const defaultConfig = {
+//   username: process.env.DICOM_USERNAME,
+//   password: process.env.DICOM_PASSWORD,
+//   token: process.env.DICOM_TOKEN,
+//   baseUrl: process.env.DICOM_BASEURL||'http://api.godicom.com/sandbox/ws/external/shipping'
+// } 
 
 
 // const request = async function (body) {
@@ -29,7 +29,9 @@ export default class DicomAPI {
 
   constructor(config?:IConfig){
     if(config){
-      Object.assign(this.config,config);
+      this.config = config;
+    }else{
+      throw new Error('we need the configuration')
     }
 
     this.basicAuth = 'Basic ' + Buffer.from(this.config.username + ':' + this.config.password).toString('base64');  
@@ -90,7 +92,7 @@ export default class DicomAPI {
           body: data,
           json: true
       }
-
+      console.log(options)
       request(options, (error, response) => {
         if (!error && response.statusCode == 201) {
           const url = response.headers.location

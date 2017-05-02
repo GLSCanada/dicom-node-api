@@ -1,16 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var request = require('request');
-var defaultConfig = {
-    username: process.env.DICOM_USERNAME,
-    password: process.env.DICOM_PASSWORD,
-    token: process.env.DICOM_TOKEN,
-    baseUrl: process.env.DICOM_BASEURL || 'http://api.godicom.com/sandbox/ws/external/shipping'
-};
 var DicomAPI = (function () {
     function DicomAPI(config) {
         if (config) {
-            Object.assign(this.config, config);
+            this.config = config;
+        }
+        else {
+            throw new Error('we need the configuration');
         }
         this.basicAuth = 'Basic ' + Buffer.from(this.config.username + ':' + this.config.password).toString('base64');
     }
@@ -62,6 +59,7 @@ var DicomAPI = (function () {
             body: data,
             json: true
         };
+        console.log(options);
         request(options, function (error, response) {
             if (!error && response.statusCode == 201) {
                 var url = response.headers.location;
