@@ -21,7 +21,7 @@ var DicomAPI = (function () {
     };
     DicomAPI.prototype.getWaybill = function (id, format, callback) {
         if (format === void 0) { format = '4x5'; }
-        var path = "shipment/" + id + "/waybills?format=" + format;
+        var path = "/shipment/" + id + "/waybills?format=" + format;
         this.getDoc(path, id, callback);
     };
     DicomAPI.prototype.getManifest = function (id, callback) {
@@ -59,7 +59,6 @@ var DicomAPI = (function () {
             body: data,
             json: true
         };
-        console.log(options);
         request(options, function (error, response) {
             if (!error && response.statusCode == 201) {
                 var url = response.headers.location;

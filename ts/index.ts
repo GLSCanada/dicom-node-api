@@ -10,7 +10,6 @@ const request = require('request')
 //   baseUrl: process.env.DICOM_BASEURL||'http://api.godicom.com/sandbox/ws/external/shipping'
 // } 
 
-
 // const request = async function (body) {
 //   return new Promise((resolve, reject) => {
 //     oldrequest(body, (error, response, body) => {
@@ -48,7 +47,7 @@ export default class DicomAPI {
   }
 
   getWaybill(id:number|string, format:string='4x5', callback:(error:any,response:any) => void){
-    const path = `shipment/${id}/waybills?format=${format}`
+    const path = `/shipment/${id}/waybills?format=${format}`
     this.getDoc(path, id, callback)
   }
 
@@ -92,7 +91,7 @@ export default class DicomAPI {
           body: data,
           json: true
       }
-      console.log(options)
+      //console.log(options)
       request(options, (error, response) => {
         if (!error && response.statusCode == 201) {
           const url = response.headers.location
