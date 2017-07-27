@@ -25,7 +25,7 @@ var DicomAPI = (function () {
         this.getDoc(path, id, callback);
     };
     DicomAPI.prototype.getManifest = function (id, callback) {
-        var path = "/pickup/" + id + "/manifests";
+		var path = "/pickup/manifest/" + id;
         this.getDoc(path, id, callback);
     };
     DicomAPI.prototype.getDoc = function (path, id, callback) {

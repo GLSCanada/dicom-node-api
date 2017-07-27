@@ -52,7 +52,7 @@ export default class DicomAPI {
   }
 
   getManifest(id:number|string, callback:(error:any,response:any) => void){
-    const path = `/pickup/${id}/manifests`
+	const path = `/pickup/manifest/${id}`
     this.getDoc(path, id, callback)
   }
 
