@@ -1,6 +1,6 @@
 {
   "name": "dicom-node-api",
-  "version": "0.0.8",
+  "version": "0.0.7",
   "description": "Dicom API for nodejs. You need a Dicom account with \"api\" right in order to use this lib. Please go to http://technicalsupport.godicom.com in order to get the access.",
   "main": "js/index.js",
   "typings": "js/index",
