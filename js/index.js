@@ -28,6 +28,10 @@ var DicomAPI = (function () {
 		var path = "/pickup/manifest/" + id;
         this.getDoc(path, id, callback);
     };
+    DicomAPI.prototype.getFuelCharges= function(division, date, callback){
+        var path = '/rate/fuelcharge/'+division+'/'+ date;
+        this.get(path,callback);
+    }
     DicomAPI.prototype.getDoc = function (path, id, callback) {
         if (!id) {
             throw new Error("id is required");
@@ -71,6 +75,26 @@ var DicomAPI = (function () {
             }
         });
     };
+    DicomAPI.prototype.get = function(path,callback){
+        var options = {
+            url: "" + this.config.baseUrl + path,
+            method: 'GET',
+            headers: {
+                'Authorization': this.basicAuth,
+                'accept': 'application/json',
+                'content-type': 'application/json'
+            },
+            json: true
+        };
+        request(options, function(error,response){
+            if(!error && response.statusCode == 200){
+                callback(null,response.body);
+            }
+            else{
+                callback(response.body, null);
+            }
+        });
+    }
     return DicomAPI;
 }());
 exports.default = DicomAPI;
