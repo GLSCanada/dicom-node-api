@@ -19,9 +19,8 @@ var DicomAPI = (function () {
         var path = '/shipment';
         this.post(path, data, callback);
     };
-    DicomAPI.prototype.getWaybill = function (id, format, callback) {
-        if (format === void 0) { format = '4x5'; }
-        var path = "/shipment/" + id + "/waybills?format=" + format;
+    DicomAPI.prototype.getWaybill = function (id, callback) {
+        var path = "/shipment/label/" + id;
         this.getDoc(path, id, callback);
     };
     DicomAPI.prototype.getManifest = function (id, callback) {
@@ -31,7 +30,7 @@ var DicomAPI = (function () {
     DicomAPI.prototype.getFuelCharges= function(division, date, callback){
         var path = '/rate/fuelcharge/'+division+'/'+ date;
         this.get(path,callback);
-    }
+    };
     DicomAPI.prototype.getDoc = function (path, id, callback) {
         if (!id) {
             throw new Error("id is required");
@@ -94,7 +93,7 @@ var DicomAPI = (function () {
                 callback(response.body, null);
             }
         });
-    }
+    };
     return DicomAPI;
 }());
 exports.default = DicomAPI;
